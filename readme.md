@@ -7,9 +7,9 @@ Displays one or more Cameras with OpenCV
  - Visual Studio 2017
  - Download and Compilation of [vcpkg](https://docs.microsoft.com/de-de/cpp/build/vcpkg?view=vs-2019)
  - Installation of [boost](https://www.boost.org/) (x64) with vcpkg 
-    vcpkg install boost:x64-windows
-OR
-    set VCPKG_DEFAULT_TRIPLET=x64-windows
+
+       vcpkg install boost:x64-windows
+      
  - Installation of [OpenCV](https://opencv.org/)
 
 
