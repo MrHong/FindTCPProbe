@@ -3,19 +3,20 @@
 Displays one or more Cameras with OpenCV
 
 ### Prerequisites
-
- - Installation of vcpkg [vcpkg](https://docs.microsoft.com/de-de/cpp/build/vcpkg?view=vs-2019)
- - Installation of boost (x64) 
- - Installation pf OpenCV 
-
-### Installing
-
+ 
+ - Visual Studio 2017
+ - Download and Compilation of [vcpkg](https://docs.microsoft.com/de-de/cpp/build/vcpkg?view=vs-2019)
+ - Installation of [boost](https://www.boost.org/) (x64) with vcpkg 
+    vcpkg install boost:x64-windows
+OR
+    set VCPKG_DEFAULT_TRIPLET=x64-windows
+ - Installation of [OpenCV](https://opencv.org/)
 
 
 ## Built With
 
- - boost                                 {12.0.351.0} (vcpkg)
- - OpenCV                                {} (ext)
+ - boost                                 {1.70.0} (vcpkg)
+ - OpenCV                                {4.1.1} (ext)
 
  (ext) = external Library
  (vcpkg) = C++ package manager
