@@ -14,6 +14,7 @@ public:
 	CameraHandler(int deviceID, int width, int height);
 	~CameraHandler();
 	void ShowCamera();
+	void DisposeCamera();
 private:
 	void InternalShowCamera();
 	int _DeviceID;

@@ -4,31 +4,28 @@
 #include "pch.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <boost\program_options.hpp>
 #include "EnumerateCameras.h"
 #include "CameraHandler.h"
-#include <boost\program_options.hpp>
-#include <algorithm>
-#include <iterator>
 
 using namespace std;
-using namespace cv;
 namespace po = boost::program_options;
 
 int main(int argc, const char *argv[])
 {
 
-	po::options_description desc("Allowed options");
+	po::options_description desc("Allowed options for FindTCPProbe: ");
 	desc.add_options()
 		("help", "this help message")
-		("list", "find and list all cameras")
+		("list", "find and list all cameras supported")
 		("cam", po::value<vector<int>>()->multitoken()->
-			zero_tokens()->composing(), "set camera device ID(s)")
-		("Width", po::value<int>()->default_value(800), "Camera Resolution X")
+			zero_tokens()->composing(), "set camera device ID(s) [multiple allowed!]")
+			("Width", po::value<int>()->default_value(800), "Camera Resolution X")
 		("Height", po::value<int>()->default_value(600), "Camera Resolution Y")
 		;
 
 	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
+	po::store(po::command_line_parser(argc, argv).options(desc).allow_unregistered().run(), vm);
 	po::notify(vm);
 
 
@@ -71,10 +68,19 @@ int main(int argc, const char *argv[])
 			}
 
 		}
+
+		for (auto camera : cameras) {
+			camera->DisposeCamera();
+		}
+
+		cv::destroyAllWindows();
 	}
-
-
-
+	else {
+		cout << endl
+			<< "No commandline parameters." << endl
+			<< "Use --help for a list of commands" << endl
+			<< endl;
+	}
 
 
 }

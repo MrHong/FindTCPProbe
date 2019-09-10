@@ -63,6 +63,10 @@ void CameraHandler::ShowCamera() {
 	InternalShowCamera();
 }
 
+void CameraHandler::DisposeCamera() {
+	if(_Capture) _Capture->release();
+	_Capture = nullptr;
+}
 
 CameraHandler::~CameraHandler()
 {
