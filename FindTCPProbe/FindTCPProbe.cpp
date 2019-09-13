@@ -1,5 +1,3 @@
-// FindTCPProbe.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
-//
 
 #include "pch.h"
 #include <iostream>
@@ -18,9 +16,11 @@ int main(int argc, const char *argv[])
 	desc.add_options()
 		("help", "this help message")
 		("list", "find and list all cameras supported")
-		("cam", po::value<vector<int>>()->multitoken()->
-			zero_tokens()->composing(), "set camera device ID(s) [multiple allowed!]")
-			("Width", po::value<int>()->default_value(800), "Camera Resolution X")
+		("cam", po::value<vector<int>>()->
+			multitoken()->
+			zero_tokens()->
+			composing(), "set camera device ID(s) [multiple allowed!]")
+		("Width", po::value<int>()->default_value(800), "Camera Resolution X")
 		("Height", po::value<int>()->default_value(600), "Camera Resolution Y")
 		;
 
@@ -50,6 +50,7 @@ int main(int argc, const char *argv[])
 
 		int reswidth = vm["Width"].as<int>();
 		int resheight = vm["Height"].as<int>();
+		bool filterOn = false;
 
 		cout << "Press ESC to stop the program!" << endl;
 
@@ -62,9 +63,28 @@ int main(int argc, const char *argv[])
 				camera->ShowCamera();
 			}
 
-			if (waitKey(15) == 27) {
+			int key = waitKey(15);
+
+			switch (key)
+			{
+			case 102:
+				filterOn = !filterOn;
+				cout << "Filter is " << filterOn << endl;
+				for (auto camera : cameras) {
+					camera->SetFilter(filterOn);
+				}
+				break;
+			default:
+				break;
+			}
+
+			if (key == 27) {
 				cout << "Esc key is pressed by user. Stoppig the video" << endl;
 				break;
+			}
+
+			if (key != -1) {
+				cout << key << endl;
 			}
 
 		}
